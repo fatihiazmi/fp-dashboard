@@ -1,7 +1,7 @@
 import LargeCard from "@/components/LargeCard";
 import SmallCard from "@/components/SmallCard";
 import ProtectedRoute from "@/components/ProtectedRoute";
-import PlayersTable from "@/components/PlayersTable";
+import PlayersDetailsTable from "@/components/PlayersDetailsTable";
 
 export default function Home() {
   const topScore = {
@@ -28,7 +28,7 @@ export default function Home() {
       </div>
       <div className="grid grid-cols-1">
         <LargeCard title="Players">
-          <PlayersTable />
+          <PlayersDetailsTable />
         </LargeCard>
       </div>
     </ProtectedRoute>
