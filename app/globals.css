@@ -2,15 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
-.spinner{
-    animation: spin 2s infinite;
+td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+a{
+  display: block;
+  width: fit-content;
+}
+
+.spinner {
+  animation: spin 2s infinite;
 }
 
 @keyframes spin {
-    0%{
-        transform: rotate(0deg);
-    }
-    100%{
-        transform: rotate(720deg);
-    }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(720deg);
+  }
 }

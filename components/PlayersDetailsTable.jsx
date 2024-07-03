@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import CheckBox from "./CheckBox";
 import ViewReceipt from "./ViewReceipt";
 import { FaPencilAlt } from "react-icons/fa";
-import Link from "next/link";
 
 const PlayersTable = () => {
   const [userData, setUserData] = useState([]);
@@ -48,7 +47,7 @@ const PlayersTable = () => {
                   <tr key={user.id}>
                     <td>
                       <button
-                        className="btn"
+                        className="btn btn-ghost"
                         onClick={() =>
                           document.getElementById("editDetails").showModal()
                         }
@@ -61,7 +60,7 @@ const PlayersTable = () => {
                     <td>{user.phoneNumber}</td>
                     <td>{user.email}</td>
                     <td>
-                      <ViewReceipt receipt={user.receipt} />
+                      <ViewReceipt userId={user.id} />
                     </td>
                     <td>
                       <CheckBox userId={user.id} check={user.eligible} />
