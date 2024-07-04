@@ -8,7 +8,6 @@ const CheckBox = ({ userId, check }) => {
   const handleChange = async (e) => {
     confirm("Are you sure?");
     const check = e.target.checked;
-    console.log(check);
 
     const updateRef = doc(db, "form-submission", userId);
 

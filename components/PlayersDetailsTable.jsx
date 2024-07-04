@@ -1,75 +1,92 @@
 "use client";
-import { useEffect, useState } from "react";
+import Image from "next/image";
 import CheckBox from "./CheckBox";
-import ViewReceipt from "./ViewReceipt";
 import { FaPencilAlt } from "react-icons/fa";
+import Link from "next/link";
+import DateFilter from "./DateFilter";
+import { useDateFilter } from "@/context/DateFilterContext";
 
-const PlayersTable = () => {
-  const [userData, setUserData] = useState([]);
+const PlayersDetailsTable = ({ userData, loading }) => {
+  const formatDate = (timestamp) => {
+    const date = new Date(timestamp);
+    return new Intl.DateTimeFormat("en-GB").format(date);
+  };
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await fetch("/api/users");
-        if (!response.ok) {
-          throw new Error("Network response not OK " + response.statusText);
-        }
-        const result = await response.json();
-        setUserData(result);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  const { dateFilter } = useDateFilter();
 
-    fetchUsers();
-  }, []);
+  const filteredUserData = userData.filter((user) => {
+    const userDate = formatDate(user.timestamp);
+    const startDate = dateFilter.startDate
+      ? formatDate(dateFilter.startDate)
+      : null;
+    const endDate = dateFilter.endDate ? formatDate(dateFilter.endDate) : null;
+    if (startDate && endDate) {
+      return userDate >= startDate && userDate <= endDate;
+    } else if (startDate) {
+      return userDate >= startDate;
+    } else if (endDate) {
+      return userDate <= endDate;
+    }
+    return true; // Return true if no filter applied
+  });
+
+  const sortedUserData = [...filteredUserData].sort(
+    (a, b) => new Date(b.timestamp) - new Date(a.timestamp)
+  );
 
   return (
     <>
+      <DateFilter />
       <div className="overflow-x-auto">
-        <table className="table table-zebra table-fixed text-left">
-          {/* head */}
-          <thead>
-            <tr>
-              <th>Edit Details</th>
-              <th>Timestamp</th>
-              <th>Name</th>
-              <th>Phone Number</th>
-              <th>Email Address</th>
-              <th className="pl-7">Receipt</th>
-              <th>Eligibility</th>
-            </tr>
-          </thead>
-          <tbody>
-            {userData &&
-              userData.map((user) => {
-                return (
-                  <tr key={user.id}>
-                    <td>
-                      <button
-                        className="btn btn-ghost"
-                        onClick={() =>
-                          document.getElementById("editDetails").showModal()
-                        }
-                      >
-                        <FaPencilAlt />
-                      </button>
-                    </td>
-                    <td>{user.timestamp}</td>
-                    <td>{user.name}</td>
-                    <td>{user.phoneNumber}</td>
-                    <td>{user.email}</td>
-                    <td>
-                      <ViewReceipt userId={user.id} />
-                    </td>
-                    <td>
-                      <CheckBox userId={user.id} check={user.eligible} />
-                    </td>
-                  </tr>
-                );
-              })}
-          </tbody>
-        </table>
+        {loading ? (
+          <p className="text-3xl text-center font-medium">Loading data...</p>
+        ) : (
+          <table className="table table-zebra table-fixed text-left">
+            {/* head */}
+            <thead>
+              <tr>
+                <th>Edit Details</th>
+                <th>Date Posted</th>
+                <th>Name</th>
+                <th>Phone Number</th>
+                <th>Email Address</th>
+                <th className="pl-7">Receipt</th>
+                <th>Eligibility</th>
+              </tr>
+            </thead>
+            <tbody>
+              {sortedUserData &&
+                sortedUserData.map((user) => {
+                  return (
+                    <tr key={user.id}>
+                      <td>
+                        <Link href={`online/users/${user.id}`}>
+                          <FaPencilAlt />
+                        </Link>
+                      </td>
+                      <td>{formatDate(user.timestamp)}</td>
+                      <td>{user.name}</td>
+                      <td>{user.phoneNumber}</td>
+                      <td>{user.email}</td>
+                      <td>
+                        <Image
+                          src={user.receipt}
+                          loading="lazy"
+                          quality={80}
+                          alt={user.receipt}
+                          width={200}
+                          height={200}
+                        />
+                      </td>
+                      <td>
+                        <CheckBox userId={user.id} check={user.eligible} />
+                      </td>
+                    </tr>
+                  );
+                })}
+            </tbody>
+          </table>
+        )}
       </div>
       {userData.length < 10 ? null : (
         <div className="join justify-end">
@@ -79,23 +96,8 @@ const PlayersTable = () => {
           <button className="join-item btn">4</button>
         </div>
       )}
-
-      <dialog id="editDetails" className="modal">
-        <div className="modal-box">
-          <h3 className="font-bold text-lg">Hello!</h3>
-          <p className="py-4">
-            Press ESC key or click the button below to close
-          </p>
-          <div className="modal-action">
-            <form method="dialog">
-              {/* if there is a button in form, it will close the modal */}
-              <button className="btn">Close</button>
-            </form>
-          </div>
-        </div>
-      </dialog>
     </>
   );
 };
 
-export default PlayersTable;
+export default PlayersDetailsTable;
