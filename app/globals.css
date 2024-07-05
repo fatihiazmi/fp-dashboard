@@ -17,6 +17,13 @@ a{
   animation: spin 2s infinite;
 }
 
+.modal-box{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 50rem;
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);

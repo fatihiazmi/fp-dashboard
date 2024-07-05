@@ -5,8 +5,17 @@ import { FaPencilAlt } from "react-icons/fa";
 import Link from "next/link";
 import DateFilter from "./DateFilter";
 import { useDateFilter } from "@/context/DateFilterContext";
+import { useState } from "react";
+import TablePagination from "./TablePagination";
 
 const PlayersDetailsTable = ({ userData, loading }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [receipt, setReceipt] = useState(null);
+
+  const lastItemIndex = currentPage * itemsPerPage;
+  const firstItemIndex = lastItemIndex - itemsPerPage;
+
   const formatDate = (timestamp) => {
     const date = new Date(timestamp);
     return new Intl.DateTimeFormat("en-GB").format(date);
@@ -34,6 +43,17 @@ const PlayersDetailsTable = ({ userData, loading }) => {
     (a, b) => new Date(b.timestamp) - new Date(a.timestamp)
   );
 
+  const currentItems = sortedUserData.slice(firstItemIndex, lastItemIndex);
+
+  const handleImageClick = ({ receipt }) => {
+    setReceipt(receipt);
+    document.getElementById("receiptModal").showModal();
+  };
+
+  const handleImageClose = () => {
+    setReceipt(null);
+  };
+
   return (
     <>
       <DateFilter />
@@ -55,8 +75,8 @@ const PlayersDetailsTable = ({ userData, loading }) => {
               </tr>
             </thead>
             <tbody>
-              {sortedUserData &&
-                sortedUserData.map((user) => {
+              {currentItems &&
+                currentItems.map((user) => {
                   return (
                     <tr key={user.id}>
                       <td>
@@ -76,6 +96,7 @@ const PlayersDetailsTable = ({ userData, loading }) => {
                           alt={user.receipt}
                           width={200}
                           height={200}
+                          onClick={() => handleImageClick(user)}
                         />
                       </td>
                       <td>
@@ -88,14 +109,34 @@ const PlayersDetailsTable = ({ userData, loading }) => {
           </table>
         )}
       </div>
-      {userData.length < 10 ? null : (
-        <div className="join justify-end">
-          <button className="join-item btn btn-active">1</button>
-          <button className="join-item btn">2</button>
-          <button className="join-item btn">3</button>
-          <button className="join-item btn">4</button>
+      <TablePagination
+        totalItems={sortedUserData.length}
+        itemsPerPage={itemsPerPage}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
+      <dialog id="receiptModal" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">Receipt</h3>
+          {receipt && (
+            <Image
+              src={receipt}
+              loading="lazy"
+              quality={80}
+              alt={receipt}
+              width={700}
+              height={700}
+            />
+          )}
         </div>
-      )}
+        <form
+          onClick={handleImageClose}
+          method="dialog"
+          className="modal-backdrop"
+        >
+          <button>close</button>
+        </form>
+      </dialog>
     </>
   );
 };
