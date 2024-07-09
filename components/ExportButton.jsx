@@ -1,3 +1,4 @@
+import { FaFileExcel } from "react-icons/fa";
 import { utils, writeFileXLSX } from "xlsx";
 
 const ExportButton = ({ tableRef }) => {
@@ -33,9 +34,10 @@ const ExportButton = ({ tableRef }) => {
     writeFileXLSX(workbook, "players_data.xlsx");
   };
   return (
-    <div className="flex justify-end">
+    <div className="flex justify-end items-center">
+      <span className="mr-4">Export To: </span>
       <button className="btn btn-ghost" onClick={handleExport}>
-        Export to Excel
+        <FaFileExcel />
       </button>
     </div>
   );
