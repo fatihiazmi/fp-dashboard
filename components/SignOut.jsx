@@ -20,7 +20,7 @@ const SignOut = () => {
     return null
   }
 
-  return <button onClick={handleSignOut}>Sign Out</button>;
+  return <button onClick={handleSignOut} className="text-lg font-bold">Sign Out</button>;
 };
 
 export default SignOut;

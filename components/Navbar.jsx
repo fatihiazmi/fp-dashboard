@@ -50,9 +50,6 @@ const Navbar = ({ children }) => {
                   </>
                 )}
               </ul>
-              <ul className="menu menu-horizontal">
-                <ThemeChange />
-              </ul>
             </div>
           </div>
           {children}
