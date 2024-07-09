@@ -16,7 +16,8 @@
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^5.2.1",
-    "react-tailwindcss-datepicker": "^1.6.6"
+    "react-tailwindcss-datepicker": "^1.6.6",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.2/xlsx-0.20.2.tgz"
   },
   "devDependencies": {
     "daisyui": "^4.12.2",

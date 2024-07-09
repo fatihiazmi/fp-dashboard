@@ -1,4 +1,5 @@
 "use client";
+import { useRef } from "react";
 import Image from "next/image";
 import CheckBox from "./CheckBox";
 import { FaPencilAlt } from "react-icons/fa";
@@ -7,11 +8,13 @@ import DateFilter from "./DateFilter";
 import { useDateFilter } from "@/context/DateFilterContext";
 import { useState } from "react";
 import TablePagination from "./TablePagination";
+import ExportButton from "./ExportButton";
 
 const PlayersDetailsTable = ({ userData, loading }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [receipt, setReceipt] = useState(null);
+  const tableRef = useRef(null);
 
   const lastItemIndex = currentPage * itemsPerPage;
   const firstItemIndex = lastItemIndex - itemsPerPage;
@@ -54,68 +57,75 @@ const PlayersDetailsTable = ({ userData, loading }) => {
     setReceipt(null);
   };
 
+
   return (
     <>
       <DateFilter />
+      <ExportButton tableRef={tableRef} />
       <div className="overflow-x-auto">
         {loading ? (
           <p className="text-3xl text-center font-medium">Loading data...</p>
         ) : (
-          <table className="table table-zebra table-auto text-left">
-            {/* head */}
-            <thead>
-              <tr>
-                <th>Edit Details</th>
-                <th>Date Posted</th>
-                <th>Name</th>
-                <th style={{textAlign: "center"}}>Score</th>
-                <th style={{textAlign: "center"}}>Time</th>
-                <th>Phone Number</th>
-                <th>Email Address</th>
-                <th className="pl-7">Receipt</th>
-                <th>Eligibility</th>
-              </tr>
-            </thead>
-            <tbody>
-              {currentItems &&
-                currentItems.map((user) => {
-                  return (
-                    <tr key={user.id}>
-                      <td>
-                        <Link href={`online/users/${user.id}`}>
-                          <FaPencilAlt />
-                        </Link>
-                      </td>
-                      <td>{formatDate(user.timestamp)}</td>
-                      <td>{user.name}</td>
-                      <td style={{ textAlign: "center" }}>
-                        {user.score ? user.score : "-"}
-                      </td>
-                      <td style={{ textAlign: "center" }}>
-                        {user.time ? user.time : "-"}
-                      </td>
-                      <td>{user.phoneNumber}</td>
-                      <td>{user.email}</td>
-                      <td>
-                        <Image
-                          style={{ cursor: "pointer" }}
-                          src={user.receipt}
-                          loading="lazy"
-                          quality={80}
-                          alt={user.receipt}
-                          width={150}
-                          height={150}
-                          onClick={() => handleImageClick(user)}
-                        />
-                      </td>
-                      <td>
-                        <CheckBox userId={user.id} check={user.eligible} />
-                      </td>
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </table>
+          <>
+            <table
+              ref={tableRef}
+              className="table table-zebra table-auto text-left"
+            >
+              {/* head */}
+              <thead>
+                <tr>
+                  <th>Edit Details</th>
+                  <th>Date Posted</th>
+                  <th>Name</th>
+                  <th style={{ textAlign: "center" }}>Score</th>
+                  <th style={{ textAlign: "center" }}>Time</th>
+                  <th>Phone Number</th>
+                  <th>Email Address</th>
+                  <th className="pl-7">Receipt</th>
+                  <th>Eligibility</th>
+                </tr>
+              </thead>
+              <tbody>
+                {currentItems &&
+                  currentItems.map((user) => {
+                    return (
+                      <tr key={user.id}>
+                        <td>
+                          <Link href={`online/users/${user.id}`}>
+                            <FaPencilAlt />
+                          </Link>
+                        </td>
+                        <td>{formatDate(user.timestamp)}</td>
+                        <td>{user.name}</td>
+                        <td style={{ textAlign: "center" }}>
+                          {user.score ? user.score : "-"}
+                        </td>
+                        <td style={{ textAlign: "center" }}>
+                          {user.time ? user.time : "-"}
+                        </td>
+                        <td>{user.phoneNumber}</td>
+                        <td>{user.email}</td>
+                        <td>
+                          <Image
+                            style={{ cursor: "pointer" }}
+                            src={user.receipt}
+                            loading="lazy"
+                            quality={80}
+                            alt={user.receipt}
+                            width={150}
+                            height={150}
+                            onClick={() => handleImageClick(user)}
+                          />
+                        </td>
+                        <td>
+                          <CheckBox userId={user.id} check={user.eligible} />
+                        </td>
+                      </tr>
+                    );
+                  })}
+              </tbody>
+            </table>
+          </>
         )}
       </div>
       <TablePagination
