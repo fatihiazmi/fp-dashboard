@@ -9,8 +9,7 @@ const nextConfig = {
         pathname: "/v0/b/leaderboard-48dfb.appspot.com/o/**",
       },
     ],
-  },
-  distDir: "build",
+  }
 };
 
 export default nextConfig;
