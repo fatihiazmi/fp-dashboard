@@ -81,7 +81,7 @@ const PlayersDetailsTable = ({ userData, loading }) => {
                   <th style={{ textAlign: "center" }}>Time</th>
                   <th>Phone Number</th>
                   <th>Email Address</th>
-                  <th className="pl-7">Receipt</th>
+                  {/* <th className="pl-7">Receipt</th> */}
                   <th>Eligibility</th>
                 </tr>
               </thead>
@@ -105,7 +105,7 @@ const PlayersDetailsTable = ({ userData, loading }) => {
                         </td>
                         <td>{user.phoneNumber}</td>
                         <td>{user.email}</td>
-                        <td>
+                        {/* <td>
                           <Image
                             style={{ cursor: "pointer" }}
                             src={user.receipt}
@@ -116,7 +116,7 @@ const PlayersDetailsTable = ({ userData, loading }) => {
                             height={150}
                             onClick={() => handleImageClick(user)}
                           />
-                        </td>
+                        </td> */}
                         <td>
                           <CheckBox userId={user.id} check={user.eligible} />
                         </td>

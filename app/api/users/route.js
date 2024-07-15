@@ -8,12 +8,13 @@ export async function GET(request) {
     const userSnapshot = await getDocs(usersCol);
     const usersList = await Promise.all(
       userSnapshot.docs.map(async (doc) => {
-        const storage = getStorage();
-        const imageRef = ref(storage, doc.data().receipt);
-        const imageUrl = await getDownloadURL(imageRef);
+        // const storage = getStorage();
+        // const imageRef = ref(storage, doc.data().receipt);
+        // const imageUrl = await getDownloadURL(imageRef);
         const JSTimestamp = doc.data().timestamp.toDate()
         const data = doc.data();
-        return { id: doc.id, ...data, receipt: imageUrl, timestamp: JSTimestamp };
+        // return { id: doc.id, ...data, receipt: imageUrl, timestamp: JSTimestamp };
+        return { id: doc.id, ...data, timestamp: JSTimestamp };
       })
     );
     return usersList;
