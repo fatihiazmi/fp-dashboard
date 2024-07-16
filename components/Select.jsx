@@ -16,9 +16,9 @@ const Select = () => {
             <option disabled selected>
               Please Select
             </option>
-            <option value="/dashboard/online">3 Flavors (Online)</option>
+            <option value="/dashboard/online">Online</option>
             <option value="/dashboard/speedrun">Speedrun</option>
-            <option value="/dashboard/on-ground">3 Flavors (On-Ground)</option>
+            <option value="/dashboard/on-ground">On-Ground</option>
           </select>
       </div>
     </>
