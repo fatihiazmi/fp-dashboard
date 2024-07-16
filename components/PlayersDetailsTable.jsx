@@ -1,5 +1,4 @@
 "use client";
-import { useRef } from "react";
 import Image from "next/image";
 import CheckBox from "./CheckBox";
 import { FaPencilAlt } from "react-icons/fa";
@@ -14,7 +13,6 @@ const PlayersDetailsTable = ({ userData, loading }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [receipt, setReceipt] = useState(null);
-  const tableRef = useRef(null);
 
   const lastItemIndex = currentPage * itemsPerPage;
   const firstItemIndex = lastItemIndex - itemsPerPage;
@@ -61,14 +59,13 @@ const PlayersDetailsTable = ({ userData, loading }) => {
   return (
     <>
       <DateFilter />
-      <ExportButton tableRef={tableRef} />
+      <ExportButton userData={sortedUserData} formatDate={formatDate} />
       <div className="overflow-x-auto">
         {loading ? (
           <p className="text-3xl text-center font-medium">Loading data...</p>
         ) : (
           <>
             <table
-              ref={tableRef}
               className="table table-zebra table-auto text-left"
             >
               {/* head */}

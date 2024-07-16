@@ -8,7 +8,6 @@ import { usePathname } from "next/navigation";
 const Navbar = ({ children }) => {
   const { user } = useAuth();
   const pathname = usePathname()
-  console.log(pathname);
   const isHomePage = pathname === "/" || pathname === "/dashboard";
 
   return (

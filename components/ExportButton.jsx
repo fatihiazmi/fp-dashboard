@@ -2,23 +2,17 @@ import { FaFileExcel } from "react-icons/fa";
 import { utils, writeFileXLSX } from "xlsx";
 import DialogCard from "./DialogCard";
 
-const ExportButton = ({ tableRef }) => {
+const ExportButton = ({ userData, formatDate }) => {
   const handleExport = () => {
     try {
       document.getElementById("eligible_modal").showModal();
-      const table = tableRef.current;
-      const rows = Array.from(table.querySelectorAll("tr"));
+      const data = userData.map((player) => {
+        const { timestamp, name, score, time, phoneNumber, email } = player;
+        return [formatDate(timestamp), name, score, time, phoneNumber, email];
+      })
 
-      const data = rows.map((row) => {
-        const cells = Array.from(row.querySelectorAll("td, th"));
-        const dateCol = cells[1]?.textContent;
-        const nameCol = cells[2]?.textContent;
-        const scoreCol = cells[3]?.textContent;
-        const timeCol = cells[4]?.textContent;
-        const phoneCol = cells[5]?.textContent;
-        const emailCol = cells[6]?.textContent;
-        return [dateCol, nameCol, scoreCol, timeCol, phoneCol, emailCol];
-      });
+      const headers = ["Date", "Name", "Score", "Time", "Phone", "Email"]
+      data.unshift(headers)
 
       const worksheet = utils.aoa_to_sheet(data);
       const workbook = utils.book_new();
