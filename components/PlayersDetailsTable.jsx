@@ -82,7 +82,7 @@ const PlayersDetailsTable = ({ userData, loading }) => {
                   <th>Phone Number</th>
                   <th>Email Address</th>
                   {/* <th className="pl-7">Receipt</th> */}
-                  <th>Eligibility</th>
+                  {/* <th>Eligibility</th> */}
                 </tr>
               </thead>
               <tbody>
@@ -117,9 +117,9 @@ const PlayersDetailsTable = ({ userData, loading }) => {
                             onClick={() => handleImageClick(user)}
                           />
                         </td> */}
-                        <td>
+                        {/* <td>
                           <CheckBox userId={user.id} check={user.eligible} />
-                        </td>
+                        </td> */}
                       </tr>
                     );
                   })}
@@ -134,7 +134,7 @@ const PlayersDetailsTable = ({ userData, loading }) => {
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
       />
-      <dialog id="receiptModal" className="modal">
+      {/* <dialog id="receiptModal" className="modal">
         <div className="modal-box">
           <h3 className="font-bold text-lg">Receipt</h3>
           {receipt && (
@@ -155,7 +155,7 @@ const PlayersDetailsTable = ({ userData, loading }) => {
         >
           <button>close</button>
         </form>
-      </dialog>
+      </dialog> */}
     </>
   );
 };

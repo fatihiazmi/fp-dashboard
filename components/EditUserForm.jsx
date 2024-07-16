@@ -4,11 +4,14 @@ import { useState } from "react";
 import DialogCard from "./DialogCard";
 import { doc, updateDoc } from "firebase/firestore/lite";
 import { db } from "@/firebase";
+import SuccessCard from "./SuccessCard";
+import { useRouter } from "next/navigation";
 
 const EditUserForm = ({ userId, userData }) => {
   const [name, setName] = useState(userData.name);
   const [email, setEmail] = useState(userData.email);
   const [phoneNumber, setPhoneNumber] = useState(userData.phoneNumber);
+  const router = useRouter();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -27,6 +30,10 @@ const EditUserForm = ({ userId, userData }) => {
       console.error(error);
     } finally {
       document.getElementById("eligible_modal").close();
+      document.getElementById("success_modal").showModal();
+      setTimeout(() => {
+        router.push("/dashboard/online");
+      }, 1500);
     }
   };
 
@@ -73,6 +80,7 @@ const EditUserForm = ({ userId, userData }) => {
         </div>
       </form>
       <DialogCard />
+      <SuccessCard message={"Successfully edited the user details!"} />
     </>
   );
 };
