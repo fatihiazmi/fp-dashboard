@@ -5,6 +5,7 @@ const TablePagination = ({
   itemsPerPage,
   currentPage,
   setCurrentPage,
+  totalPages,
 }) => {
   let pages = [];
 
@@ -30,7 +31,7 @@ const TablePagination = ({
         <button className="join-item btn" onClick={handlePrevPage}>
           «
         </button>
-        <button className="join-item btn">{currentPage}</button>
+        <button className="join-item btn">{currentPage} of {totalPages}</button>
         <button className="join-item btn" onClick={handleNextPage}>
           »
         </button>

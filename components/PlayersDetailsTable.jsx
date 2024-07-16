@@ -44,6 +44,8 @@ const PlayersDetailsTable = ({ userData, loading }) => {
     (a, b) => new Date(b.timestamp) - new Date(a.timestamp)
   );
 
+  const totalPages = Math.ceil(sortedUserData.length / itemsPerPage)
+
   const currentItems = sortedUserData.slice(firstItemIndex, lastItemIndex);
 
   const handleImageClick = ({ receipt }) => {
@@ -130,6 +132,7 @@ const PlayersDetailsTable = ({ userData, loading }) => {
         itemsPerPage={itemsPerPage}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
+        totalPages={totalPages}
       />
       {/* <dialog id="receiptModal" className="modal">
         <div className="modal-box">
