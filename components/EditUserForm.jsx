@@ -7,7 +7,7 @@ import { db } from "@/firebase";
 import SuccessCard from "./SuccessCard";
 import { useRouter } from "next/navigation";
 
-const EditUserForm = ({ userId, userData }) => {
+const EditUserForm = ({ userId, userData, collection, route }) => {
   const [name, setName] = useState(userData.name);
   const [email, setEmail] = useState(userData.email);
   const [phoneNumber, setPhoneNumber] = useState(userData.phoneNumber);
@@ -17,7 +17,7 @@ const EditUserForm = ({ userId, userData }) => {
     event.preventDefault();
     confirm("Are you sure you want to edit this?");
 
-    const updateRef = doc(db, "form-submission", userId);
+    const updateRef = doc(db, collection, userId);
 
     try {
       document.getElementById("eligible_modal").showModal();
@@ -32,7 +32,7 @@ const EditUserForm = ({ userId, userData }) => {
       document.getElementById("eligible_modal").close();
       document.getElementById("success_modal").showModal();
       setTimeout(() => {
-        router.push("/dashboard/online");
+        router.push(`/dashboard/${route}`);
       }, 1500);
     }
   };

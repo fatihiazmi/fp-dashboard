@@ -46,7 +46,7 @@ const EditPlayerDetails = ({ params }) => {
           <span>Go Back</span>
         </button>
       </Link>
-      {userData && <EditUserForm userId={id} userData={userData} />}
+      {userData && <EditUserForm userId={id} userData={userData} collection={"onground-form"} route={"on-ground"} />}
     </>
   );
 };
