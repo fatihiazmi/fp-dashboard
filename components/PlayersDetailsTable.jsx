@@ -9,7 +9,7 @@ import { useState } from "react";
 import TablePagination from "./TablePagination";
 import ExportButton from "./ExportButton";
 
-const PlayersDetailsTable = ({ userData, loading }) => {
+const PlayersDetailsTable = ({ userData, loading, inGameName }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [receipt, setReceipt] = useState(null);
@@ -75,7 +75,7 @@ const PlayersDetailsTable = ({ userData, loading }) => {
                 <tr>
                   <th>Edit Details</th>
                   <th>Date Posted</th>
-                  <th>In-Game Name</th>
+                  {inGameName && <th>In-Game Name</th>}
                   <th>Name</th>
                   <th style={{ textAlign: "center" }}>Score</th>
                   <th style={{ textAlign: "center" }}>Time</th>
@@ -96,7 +96,7 @@ const PlayersDetailsTable = ({ userData, loading }) => {
                           </Link>
                         </td>
                         <td>{formatDate(user.timestamp)}</td>
-                        <td>{user.inGameName}</td>
+                        {inGameName && <td>{user.inGameName}</td>}
                         <td>{user.name}</td>
                         <td style={{ textAlign: "center" }}>
                           {user.score ? user.score : "-"}

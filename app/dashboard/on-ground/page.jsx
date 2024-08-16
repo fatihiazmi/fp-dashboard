@@ -77,7 +77,7 @@ export default function Home() {
       <div className="grid grid-cols-1">
         <LargeCard title="Players">
           <DateFilterProvider>
-            <PlayersDetailsTable userData={userData} loading={loading} />
+            <PlayersDetailsTable userData={userData} loading={loading} inGameName={true}/>
           </DateFilterProvider>
         </LargeCard>
       </div>
