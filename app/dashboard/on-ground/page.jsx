@@ -1,6 +1,5 @@
 "use client";
 import LargeCard from "@/components/LargeCard";
-import SmallCard from "@/components/SmallCard";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import PlayersDetailsTable from "@/components/PlayersDetailsTable";
 import { useEffect, useState } from "react";
@@ -28,7 +27,7 @@ export default function Home() {
     const fetchUsers = async () => {
       try {
         setLoading(true);
-        const response = await fetch("/api/users");
+        const response = await fetch("/api/users/onground");
         if (!response.ok) {
           throw new Error("Network response not OK " + response.statusText);
         }
@@ -75,18 +74,6 @@ export default function Home() {
 
   return (
     <ProtectedRoute>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4 pb-4">
-        {/* <SmallCard
-          title="Top Scorer"
-          content={`${topScorer.name} : ${topScorer.score}`}
-          loading={loading}
-        />
-        <SmallCard
-          title="Fastest Player"
-          content={`${fastestPlayer.name} : ${fastestPlayer.time}`}
-          loading={loading}
-        /> */}
-      </div>
       <div className="grid grid-cols-1">
         <LargeCard title="Players">
           <DateFilterProvider>

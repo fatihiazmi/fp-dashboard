@@ -68,10 +68,10 @@ const Navbar = ({ children }) => {
               <Link href="/dashboard/online">Online</Link>
             </li>
             <li>
-              <Link className="text-gray-500 cursor-not-allowed" onClick={(e) => {e.preventDefault()}} href="/dashboard/speedrun">Speedrun (Unavailable)</Link>
+              <Link href="/dashboard/on-ground">On-Ground</Link>
             </li>
             <li>
-              <Link className="text-gray-500 cursor-not-allowed" onClick={(e) => {e.preventDefault()}} href="/dashboard/on-ground">On-Ground (Unavailable)</Link>
+              <Link className="text-gray-500 cursor-not-allowed" onClick={(e) => {e.preventDefault()}} href="/dashboard/speedrun">Speedrun (Unavailable)</Link>
             </li>
           </ul>
         </div>

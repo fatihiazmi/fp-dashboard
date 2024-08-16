@@ -75,6 +75,7 @@ const PlayersDetailsTable = ({ userData, loading }) => {
                 <tr>
                   <th>Edit Details</th>
                   <th>Date Posted</th>
+                  <th>In-Game Name</th>
                   <th>Name</th>
                   <th style={{ textAlign: "center" }}>Score</th>
                   <th style={{ textAlign: "center" }}>Time</th>
@@ -90,11 +91,12 @@ const PlayersDetailsTable = ({ userData, loading }) => {
                     return (
                       <tr key={user.id}>
                         <td>
-                          <Link href={`online/users/${user.id}`}>
+                          <Link href={`on-ground/users/${user.id}`}>
                             <FaPencilAlt />
                           </Link>
                         </td>
                         <td>{formatDate(user.timestamp)}</td>
+                        <td>{user.inGameName}</td>
                         <td>{user.name}</td>
                         <td style={{ textAlign: "center" }}>
                           {user.score ? user.score : "-"}
@@ -104,21 +106,6 @@ const PlayersDetailsTable = ({ userData, loading }) => {
                         </td>
                         <td>{user.phoneNumber}</td>
                         <td>{user.email}</td>
-                        {/* <td>
-                          <Image
-                            style={{ cursor: "pointer" }}
-                            src={user.receipt}
-                            loading="lazy"
-                            quality={80}
-                            alt={user.receipt}
-                            width={150}
-                            height={150}
-                            onClick={() => handleImageClick(user)}
-                          />
-                        </td> */}
-                        {/* <td>
-                          <CheckBox userId={user.id} check={user.eligible} />
-                        </td> */}
                       </tr>
                     );
                   })}
@@ -134,28 +121,6 @@ const PlayersDetailsTable = ({ userData, loading }) => {
         setCurrentPage={setCurrentPage}
         totalPages={totalPages}
       />
-      {/* <dialog id="receiptModal" className="modal">
-        <div className="modal-box">
-          <h3 className="font-bold text-lg">Receipt</h3>
-          {receipt && (
-            <Image
-              src={receipt}
-              loading="lazy"
-              quality={80}
-              alt={receipt}
-              width={700}
-              height={700}
-            />
-          )}
-        </div>
-        <form
-          onClick={handleImageClose}
-          method="dialog"
-          className="modal-backdrop"
-        >
-          <button>close</button>
-        </form>
-      </dialog> */}
     </>
   );
 };

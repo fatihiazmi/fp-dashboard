@@ -6,7 +6,7 @@ export async function GET(request) {
   try {
     const fetchUserData = async () => {
       try {
-        const usersCol = collection(db, "form-submission");
+        const usersCol = collection(db, "onground-form");
         const userSnapshot = await getDocs(usersCol);
         const usersList = await Promise.all(
           userSnapshot.docs.map(async (doc) => {

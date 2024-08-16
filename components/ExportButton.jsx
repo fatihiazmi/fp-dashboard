@@ -7,11 +7,11 @@ const ExportButton = ({ userData, formatDate }) => {
     try {
       document.getElementById("eligible_modal").showModal();
       const data = userData.map((player) => {
-        const { timestamp, name, score, time, phoneNumber, email } = player;
-        return [formatDate(timestamp), name, score, time, phoneNumber, email];
+        const { timestamp, inGameName, name, score, time, phoneNumber, email } = player;
+        return [formatDate(timestamp), inGameName, name, score, time, phoneNumber, email];
       })
 
-      const headers = ["Date", "Name", "Score", "Time", "Phone", "Email"]
+      const headers = ["Date", "In-Game Name", "Name", "Score", "Time", "Phone", "Email"]
       data.unshift(headers)
 
       const worksheet = utils.aoa_to_sheet(data);
