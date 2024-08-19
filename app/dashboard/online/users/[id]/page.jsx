@@ -14,7 +14,7 @@ const EditPlayerDetails = ({ params }) => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch(`/api/user?id=${id}`);
+        const response = await fetch(`gm-admin/api/user?id=${id}`);
         if (!response.ok) {
           throw new Error("Network response not OK " + response.statusText);
         }

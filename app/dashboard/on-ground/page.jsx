@@ -27,7 +27,7 @@ export default function Home() {
     const fetchUsers = async () => {
       try {
         setLoading(true);
-        const response = await fetch("/api/users/onground");
+        const response = await fetch("gm-admin/api/users/onground");
         if (!response.ok) {
           throw new Error("Network response not OK " + response.statusText);
         }
